@@ -1,18 +1,17 @@
-export default (
-   err,
-   req,
-   res,
-   next
-) => {
+const errorHandler = (err, req, res, next) => {
 
-   res.status(
-      err.statusCode || 500
-   ).json({
+   console.error(err);
+
+   return res.status(err.statusCode || 500).json({
 
       success: false,
 
-      message: err.message
+      statusCode: err.statusCode || 500,
+
+      message: err.message || "Internal Server Error"
 
    });
 
-}
+};
+
+export default errorHandler;

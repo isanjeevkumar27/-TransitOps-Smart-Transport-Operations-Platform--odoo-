@@ -1,5 +1,3 @@
-// src/models/Role.js
-
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
@@ -13,18 +11,27 @@ const Role = sequelize.define(
     },
 
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(50),
       allowNull: false,
       unique: true,
+      validate: {
+        notEmpty: {
+          msg: "Role name is required",
+        },
+      },
     },
 
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(255),
+      allowNull: true,
     },
   },
   {
     tableName: "roles",
+
     timestamps: true,
+
+    freezeTableName: true,
   }
 );
 

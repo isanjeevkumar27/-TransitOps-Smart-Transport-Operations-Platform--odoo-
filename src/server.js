@@ -1,27 +1,70 @@
 import app from "./app.js";
-import sequelize from "./config/database.js";
+
+import db from "./models/index.js";
+
 import env from "./config/env.js";
+
 import { logger } from "./config/logger.js";
+
+import { seedDatabase } from "./database/seed.js";
 
 async function startServer() {
 
    try {
 
-      await sequelize.authenticate();
+      /*
+      |--------------------------------------------------------------------------
+      | Database Connection
+      |--------------------------------------------------------------------------
+      */
 
-      logger.info("Database Connected");
+      await db.sequelize.authenticate();
+
+      logger.info("Database Connected.");
+
+      /*
+      |--------------------------------------------------------------------------
+      | Sync Database
+      |--------------------------------------------------------------------------
+      */
+
+      await db.sequelize.sync({
+
+         alter: true
+
+      });
+
+      logger.info("Database Synced.");
+
+      /*
+      |--------------------------------------------------------------------------
+      | Seed Default Data
+      |--------------------------------------------------------------------------
+      */
+
+      await seedDatabase();
+
+      /*
+      |--------------------------------------------------------------------------
+      | Start Server
+      |--------------------------------------------------------------------------
+      */
 
       app.listen(env.PORT, () => {
 
          logger.info(
-            `Server running on port ${env.PORT}`
+
+            `Server running on http://localhost:${env.PORT}`
+
          );
 
       });
 
-   } catch (error) {
+   }
 
-      logger.error(error.message);
+   catch (error) {
+
+      logger.error(error);
 
       process.exit(1);
 
