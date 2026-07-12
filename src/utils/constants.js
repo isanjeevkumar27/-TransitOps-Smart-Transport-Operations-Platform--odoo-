@@ -33,3 +33,19 @@ export const TRIP_STATUS = {
    CANCELLED: "Cancelled"
 
 }
+
+export const VEHICLE_TYPES = [
+
+   "Truck",
+
+   "Van",
+
+   "Mini Truck",
+
+   "Pickup",
+
+   "Trailer",
+
+   "Container",
+
+];
