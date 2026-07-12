@@ -1,137 +1,101 @@
 import express from "express";
 
-import vehicleController from "../controllers/vehicle.controller.js";
+import driverController from "../controllers/driver.controller.js";
 
 import authenticate from "../middleware/auth.js";
-
 import authorize from "../middleware/role.js";
-
 import validator from "../middleware/validator.js";
 
 import {
-
-   createVehicleValidator,
-
-   updateVehicleValidator
-
-} from "../validators/vehicle.validator.js";
+    createDriverValidator,
+    updateDriverValidator,
+} from "../validators/driver.validator.js";
 
 const router = express.Router();
 
 /*
 |--------------------------------------------------------------------------
-| GET ALL
-|--------------------------------------------------------------------------
-*/
-
-/*
-|--------------------------------------------------------------------------
-| GET ALL VEHICLES
+| GET ALL DRIVERS
 |--------------------------------------------------------------------------
 */
 
 router.get(
     "/",
     authenticate,
-    vehicleController.getAllVehicles
+    driverController.getAllDrivers
 );
 
 /*
 |--------------------------------------------------------------------------
-| AVAILABLE VEHICLES
+| AVAILABLE DRIVERS
 |--------------------------------------------------------------------------
 */
 
 router.get(
     "/available",
     authenticate,
-    vehicleController.getAvailableVehicles
+    driverController.getAvailableDrivers
 );
 
 /*
 |--------------------------------------------------------------------------
-| GET VEHICLE BY ID
+| GET DRIVER BY ID
 |--------------------------------------------------------------------------
 */
 
 router.get(
     "/:id",
     authenticate,
-    vehicleController.getVehicleById
+    driverController.getDriverById
 );
 
 /*
 |--------------------------------------------------------------------------
-| CREATE
+| CREATE DRIVER
 |--------------------------------------------------------------------------
 */
 
 router.post(
-
-   "/",
-
-   authenticate,
-
-   authorize(
-
-      "Admin",
-
-      "Fleet Manager"
-
-   ),
-
-   createVehicleValidator,
-
-   validator,
-
-   vehicleController.createVehicle
-
+    "/",
+    authenticate,
+    authorize(
+        "Admin",
+        "Fleet Manager"
+    ),
+    createDriverValidator,
+    validator,
+    driverController.createDriver
 );
 
 /*
 |--------------------------------------------------------------------------
-| UPDATE
+| UPDATE DRIVER
 |--------------------------------------------------------------------------
 */
 
 router.put(
-
-   "/:id",
-
-   authenticate,
-
-   authorize(
-
-      "Admin",
-
-      "Fleet Manager"
-
-   ),
-
-   updateVehicleValidator,
-
-   validator,
-
-   vehicleController.updateVehicle
-
+    "/:id",
+    authenticate,
+    authorize(
+        "Admin",
+        "Fleet Manager"
+    ),
+    updateDriverValidator,
+    validator,
+    driverController.updateDriver
 );
 
 /*
 |--------------------------------------------------------------------------
-| DELETE
+| DELETE DRIVER
 |--------------------------------------------------------------------------
 */
 
 router.delete(
-
-   "/:id",
-
-   authenticate,
-
-   authorize("Admin"),
-
-   vehicleController.deleteVehicle
-
+    "/:id",
+    authenticate,
+    authorize("Admin"),
+    driverController.deleteDriver
 );
 
 export default router;
