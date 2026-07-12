@@ -2,6 +2,7 @@ import sequelize from "../config/database.js";
 
 import Role from "./Role.js";
 import User from "./User.js";
+import Vehicle from "./Vehicle.js";
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,7 @@ const db = {
 
    Role,
    User,
+   Vehicle,
 };
 
 export default db;
