@@ -1,51 +1,125 @@
 export const VEHICLE_STATUS = {
 
-   AVAILABLE: "Available",
+    AVAILABLE: "Available",
 
-   ON_TRIP: "On Trip",
+    ON_TRIP: "On Trip",
 
-   IN_SHOP: "In Shop",
+    IN_SHOP: "In Shop",
 
-   RETIRED: "Retired"
+    RETIRED: "Retired",
 
-}
+};
 
 export const DRIVER_STATUS = {
 
-   AVAILABLE: "Available",
+    AVAILABLE: "Available",
 
-   ON_TRIP: "On Trip",
+    ON_TRIP: "On Trip",
 
-   OFF_DUTY: "Off Duty",
+    OFF_DUTY: "Off Duty",
 
-   SUSPENDED: "Suspended"
+    SUSPENDED: "Suspended",
 
-}
+};
 
 export const TRIP_STATUS = {
 
-   DRAFT: "Draft",
+    DRAFT: "Draft",
 
-   DISPATCHED: "Dispatched",
+    DISPATCHED: "Dispatched",
 
-   COMPLETED: "Completed",
+    COMPLETED: "Completed",
 
-   CANCELLED: "Cancelled"
+    CANCELLED: "Cancelled",
 
-}
+};
 
 export const VEHICLE_TYPES = [
 
-   "Truck",
+    "Truck",
 
-   "Van",
+    "Van",
 
-   "Mini Truck",
+    "Mini Truck",
 
-   "Pickup",
+    "Pickup",
 
-   "Trailer",
+    "Trailer",
 
-   "Container",
+    "Container",
+
+];
+
+export const DRIVER_SORT_FIELDS = [
+
+    "employeeId",
+
+    "firstName",
+
+    "lastName",
+
+    "email",
+
+    "licenseExpiry",
+
+    "status",
+
+    "createdAt",
+
+];
+
+/*
+|--------------------------------------------------------------------------
+| Trip Status
+|--------------------------------------------------------------------------
+*/
+
+export const TRIP_STATUS = {
+
+    DRAFT: "Draft",
+
+    DISPATCHED: "Dispatched",
+
+    COMPLETED: "Completed",
+
+    CANCELLED: "Cancelled",
+
+};
+
+/*
+|--------------------------------------------------------------------------
+| Trip Status
+|--------------------------------------------------------------------------
+*/
+
+export const TRIP_STATUS = {
+
+    DRAFT: "Draft",
+
+    DISPATCHED: "Dispatched",
+
+    COMPLETED: "Completed",
+
+    CANCELLED: "Cancelled",
+
+};
+
+/*
+|--------------------------------------------------------------------------
+| Trip Sort Fields
+|--------------------------------------------------------------------------
+*/
+
+export const TRIP_SORT_FIELDS = [
+
+    "tripNumber",
+
+    "departureTime",
+
+    "expectedArrival",
+
+    "status",
+
+    "createdAt",
 
 ];

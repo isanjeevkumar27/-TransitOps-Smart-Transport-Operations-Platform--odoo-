@@ -1,137 +1,140 @@
 import express from "express";
 
-import vehicleController from "../controllers/vehicle.controller.js";
+import tripController from "../controllers/trip.controller.js";
 
 import authenticate from "../middleware/auth.js";
-
 import authorize from "../middleware/role.js";
-
 import validator from "../middleware/validator.js";
 
 import {
-
-   createVehicleValidator,
-
-   updateVehicleValidator
-
-} from "../validators/vehicle.validator.js";
+    createTripValidator,
+    completeTripValidator,
+    dispatchTripValidator,
+    cancelTripValidator,
+} from "../validators/trip.validator.js";
 
 const router = express.Router();
 
 /*
 |--------------------------------------------------------------------------
-| GET ALL
-|--------------------------------------------------------------------------
-*/
-
-/*
-|--------------------------------------------------------------------------
-| GET ALL VEHICLES
+| GET ALL TRIPS
 |--------------------------------------------------------------------------
 */
 
 router.get(
     "/",
     authenticate,
-    vehicleController.getAllVehicles
+    authorize(
+        "Admin",
+        "Fleet Manager",
+        "Dispatcher"
+    ),
+    tripController.getAllTrips
 );
 
 /*
 |--------------------------------------------------------------------------
-| AVAILABLE VEHICLES
-|--------------------------------------------------------------------------
-*/
-
-router.get(
-    "/available",
-    authenticate,
-    vehicleController.getAvailableVehicles
-);
-
-/*
-|--------------------------------------------------------------------------
-| GET VEHICLE BY ID
+| GET TRIP BY ID
 |--------------------------------------------------------------------------
 */
 
 router.get(
     "/:id",
     authenticate,
-    vehicleController.getVehicleById
+    authorize(
+        "Admin",
+        "Fleet Manager",
+        "Dispatcher"
+    ),
+    tripController.getTripById
 );
 
 /*
 |--------------------------------------------------------------------------
-| CREATE
+| CREATE TRIP
 |--------------------------------------------------------------------------
 */
 
 router.post(
-
-   "/",
-
-   authenticate,
-
-   authorize(
-
-      "Admin",
-
-      "Fleet Manager"
-
-   ),
-
-   createVehicleValidator,
-
-   validator,
-
-   vehicleController.createVehicle
-
+    "/",
+    authenticate,
+    authorize(
+        "Admin",
+        "Fleet Manager",
+        "Dispatcher"
+    ),
+    createTripValidator,
+    validator,
+    tripController.createTrip
 );
 
 /*
 |--------------------------------------------------------------------------
-| UPDATE
+| DISPATCH TRIP
 |--------------------------------------------------------------------------
 */
 
 router.put(
-
-   "/:id",
-
-   authenticate,
-
-   authorize(
-
-      "Admin",
-
-      "Fleet Manager"
-
-   ),
-
-   updateVehicleValidator,
-
-   validator,
-
-   vehicleController.updateVehicle
-
+    "/:id/dispatch",
+    authenticate,
+    authorize(
+        "Admin",
+        "Fleet Manager",
+        "Dispatcher"
+    ),
+    dispatchTripValidator,
+    validator,
+    tripController.dispatchTrip
 );
 
 /*
 |--------------------------------------------------------------------------
-| DELETE
+| COMPLETE TRIP
+|--------------------------------------------------------------------------
+*/
+
+router.put(
+    "/:id/complete",
+    authenticate,
+    authorize(
+        "Admin",
+        "Fleet Manager",
+        "Dispatcher"
+    ),
+    completeTripValidator,
+    validator,
+    tripController.completeTrip
+);
+
+/*
+|--------------------------------------------------------------------------
+| CANCEL TRIP
+|--------------------------------------------------------------------------
+*/
+
+router.put(
+    "/:id/cancel",
+    authenticate,
+    authorize(
+        "Admin",
+        "Fleet Manager"
+    ),
+    cancelTripValidator,
+    validator,
+    tripController.cancelTrip
+);
+
+/*
+|--------------------------------------------------------------------------
+| DELETE TRIP
 |--------------------------------------------------------------------------
 */
 
 router.delete(
-
-   "/:id",
-
-   authenticate,
-
-   authorize("Admin"),
-
-   vehicleController.deleteVehicle
-
+    "/:id",
+    authenticate,
+    authorize("Admin"),
+    tripController.deleteTrip
 );
 
 export default router;
